@@ -1,0 +1,11 @@
+*.ca-bundle
+*.cer
+*.crt
+*.der
+*.enc
+*.key
+*.pem
+*.pfx
+.idea/
+.vscode/
+[._]DS_Store

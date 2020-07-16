@@ -1,0 +1,8 @@
+{
+    "name": "Chat Robot",
+    "type": "AI",
+    "image": "chatrobot.png",
+    "version": "1.0.2",
+    "examples": [
+    ]
+}
