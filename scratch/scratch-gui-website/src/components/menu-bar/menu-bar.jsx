@@ -334,7 +334,7 @@ class MenuBar extends React.Component {
                     this.props.className,
                     styles.menuBar
                 )}
-                style={{backgroundColor: window.scratchConfig.menuBar.color}}		//aoqingy
+                style={(window.scratchConfig && window.scratchConfig.menuBar && window.scratchConfig.menuBar.color) && {backgroundColor: window.scratchConfig.menuBar.color}}
             >
                 <div className={styles.mainMenu}>
                     <div className={styles.fileGroup}>
@@ -601,20 +601,6 @@ class MenuBar extends React.Component {
                                         styles.menuBarItem,
                                         styles.hoverable
                                     )}
-                                    key="join"
-                                    onMouseUp={this.props.onOpenRegistration}
-                                >
-                                    <FormattedMessage
-                                        defaultMessage="Join Scratch"
-                                        description="Link for creating a Scratch account"
-                                        id="gui.menuBar.joinScratch"
-                                    />
-                                </div>
-                                <div
-                                    className={classNames(
-                                        styles.menuBarItem,
-                                        styles.hoverable
-                                    )}
                                     key="login"
                                     onMouseUp={this.props.onClickLogin}
                                 >
@@ -628,7 +614,7 @@ class MenuBar extends React.Component {
                                         isOpen={this.props.loginMenuOpen}
                                         isRtl={this.props.isRtl}
                                         renderLogin={this.props.renderLogin}
-                                        onClose={this.props.onRequestCloseLogin}
+                                        onClose={this.props.onClose}
                                     />
                                 </div>
                             </React.Fragment>
@@ -636,28 +622,20 @@ class MenuBar extends React.Component {
                     ) : (
                         // ******** no login session is available, so don't show login stuff
                         <React.Fragment>
-                                <React.Fragment>
-                                    <MenuBarItemTooltip
-                                        id="account-nav"
-                                        place={this.props.isRtl ? 'right' : 'left'}
-                                    >
-                                        <div
-                                            className={classNames(
-                                                styles.menuBarItem,
-                                                styles.hoverable,
-                                                styles.accountNavMenu
-                                            )}
-                                        >
-                                            <span>
-                                                {'scratch-cat'}
-                                            </span>
-                                            <img
-                                                className={styles.dropdownCaretIcon}
-                                                src={dropdownCaret}
-                                            />
-                                        </div>
-                                    </MenuBarItemTooltip>
-                                </React.Fragment>
+                                <div
+                                    className={classNames(
+                                        styles.menuBarItem,
+                                        styles.hoverable
+                                    )}
+                                    key="login"
+                                    onMouseUp={this.props.onClickLogin}
+                                >
+                                    <FormattedMessage
+                                        defaultMessage="Sign in"
+                                        description="Link for signing in to your Scratch account"
+                                        id="gui.menuBar.signIn"
+                                    />
+                                </div>
                         </React.Fragment>
                     )}
                 </div>
