@@ -31,6 +31,16 @@ const MlCar_Name = {
     'zh-cn': '机器人小车',
 }
 
+const MlCar_SetIPAddr = {
+    'en': 'Set IP Addr [IPADDR]',
+    'zh-cn': '配置IP [IPADDR]',
+}
+
+const MlCar_GetIPAddr = {
+    'en': 'Get IP Addr',
+    'zh-cn': 'IP地址',
+}
+
 const MlCar_ToggleCamera = {
     'en': 'Toggle Camera [STATE]',
     'zh-cn': '切换摄像头 [STATE]',
@@ -89,6 +99,7 @@ class MlCar {
          * @type {Runtime}
          */
         this.runtime = runtime;
+        this.ip_address = '';
         this.camera_status = false;
         this.locale = this._setLocale();
         this._lastUpdate = null;
@@ -174,6 +185,23 @@ class MlCar {
             menuIconURI: menuIconURI,
             blockIconURI: blockIconURI,
             blocks: [
+                {
+                    opcode: 'setipaddr',
+                    blockType: BlockType.COMMAND,
+                    text: MlCar_SetIPAddr[this.locale],
+                    arguments: {
+                        IPADDR: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ''
+                        }
+                    }
+                },
+                {
+                    opcode: 'getipaddr',
+                    blockType: BlockType.REPORTER,
+                    text: MlCar_GetIPAddr[this.locale]
+                },
+                '---',
                 {
                     opcode: 'togglecamera',
                     blockType: BlockType.COMMAND,
@@ -294,11 +322,31 @@ class MlCar {
         });
     }
 
+    setipaddr (args, util) {
+        console.log(args.IPADDR);
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;  
+        console.log(args.IPADDR.match(ipformat));
+        if(!args.IPADDR || args.IPADDR.match(ipformat))  
+            this.ip_address = args.IPADDR;
+    }
+
+    getipaddr (args, util) {
+        return this.ip_address;
+    }
+
+    buildtarget (target) {
+        if (this.ip_address) {
+            target = "https://" + this.ip_address + target;
+        }
+        console.log(target);
+        return target;
+    }
+
     togglecamera (args, util) {
         const state = args.STATE;
         if (state === PiCameraState.ON || state === PiCameraState.ON_FLIPPED) {
             const flipped = state === PiCameraState.ON_FLIPPED;
-            fetch("/00000000-0000-0000-0000-000000015000/start_camera/", {
+            fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/start_camera/"), {
                 body: JSON.stringify({
                     'flipped': flipped
                 }),
@@ -310,7 +358,7 @@ class MlCar {
                 this.camera_status = true;
             });
         } else {
-            fetch("/00000000-0000-0000-0000-000000015000/stop_camera/", {
+            fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/stop_camera/"), {
                 body: {},
                 headers: {
                     'content-type': 'application/json'
@@ -337,7 +385,7 @@ class MlCar {
         if (offset > interval) {
             if (this.camera_status === true) {
                 var context = this.canvas.getContext('2d');
-                fetch("/00000000-0000-0000-0000-000000015000/take_camera/", {
+                fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/take_camera/"), {
                     body: {},
                     headers: {
                         'content-type': 'application/json'
@@ -386,7 +434,7 @@ class MlCar {
             const BitmapAdapter = SvgRenderer.BitmapAdapter;
             const bitmapAdapter = new BitmapAdapter();
             
-            fetch("/00000000-0000-0000-0000-000000015000/take_camera/", {
+            fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/take_camera/"), {
                 body: {},
                 headers: {
                     'content-type': 'application/json'
@@ -420,7 +468,7 @@ class MlCar {
 
     goforward(args, util) {
         return new Promise((resolve, reject) => {
-            fetch("/00000000-0000-0000-0000-000000015000/go_forward/", {
+            fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/go_forward/"), {
                 body: JSON.stringify({
                     "text": args.SPEED,
                 }),
@@ -437,7 +485,7 @@ class MlCar {
 
     gobackward(args, util) {
         return new Promise((resolve, reject) => {
-            fetch("/00000000-0000-0000-0000-000000015000/go_backward/", {
+            fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/go_backward/"), {
                 body: JSON.stringify({
                     "text": args.SPEED,
                 }),
@@ -453,7 +501,7 @@ class MlCar {
 
     turnleft(args, util) {
         return new Promise((resolve, reject) => {
-            fetch("/00000000-0000-0000-0000-000000015000/turn_left/", {
+            fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/turn_left/"), {
                 body: JSON.stringify({
                     "text": args.SPEED,
                 }),
@@ -469,7 +517,7 @@ class MlCar {
 
     turnright(args, util) {
         return new Promise((resolve, reject) => {
-            fetch("/00000000-0000-0000-0000-000000015000/turn_right/", {
+            fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/turn_right/"), {
                 body: JSON.stringify({
                     "text": args.SPEED,
                 }),
@@ -485,7 +533,7 @@ class MlCar {
 
     stopit(args, util) {
         return new Promise((resolve, reject) => {
-            fetch("/00000000-0000-0000-0000-000000015000/stop_it/", {
+            fetch(this.buildtarget("/00000000-0000-0000-0000-000000015000/stop_it/"), {
                 body: JSON.stringify({}),
                 headers: {
                     'content-type': 'application/json'
