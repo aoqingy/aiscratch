@@ -1115,7 +1115,14 @@
             this.intermediateModels = {};
             var multiplierStr = ({ 0.25: '0.25', 0.50: '0.50', 0.75: '0.75', 1.0: '1.0' })[alpha];
             //this.path = BASE_PATH + "mobilenet_v" + version + "_" + multiplierStr + "_" + IMAGE_SIZE + "/" + "model.json";
-            this.path = "/00000000-0000-0000-0000-000000015000/model/knn/model.json";    //aoqingy
+            var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            if (!window.location.host.match(ipformat)) {		//change to backend in case of domain name (aoqingy)
+                this.path = "http://" + window.location.host.split(':')[0] + ":443";
+            } else {
+                this.path = "https://" + window.location.host;
+            }
+            this.path += "/00000000-0000-0000-0000-000000015000/model/knn/model.json";
+            console.log(this.path);
             this.normalizationOffset = tf.scalar(127.5);
         }
         MobileNet.prototype.load = function () {

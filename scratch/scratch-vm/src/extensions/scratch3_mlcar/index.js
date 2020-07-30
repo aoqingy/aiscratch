@@ -32,12 +32,12 @@ const MlCar_Name = {
 }
 
 const MlCar_SetIPAddr = {
-    'en': 'Set IP Addr [IPADDR]',
-    'zh-cn': '配置IP [IPADDR]',
+    'en': 'Save IP Addr [IPADDR]',
+    'zh-cn': '保存IP [IPADDR]',
 }
 
 const MlCar_GetIPAddr = {
-    'en': 'Get IP Addr',
+    'en': 'Read IP Addr',
     'zh-cn': 'IP地址',
 }
 

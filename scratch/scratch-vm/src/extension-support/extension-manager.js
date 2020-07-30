@@ -24,11 +24,10 @@ const builtinExtensions = {
     makeymakey: () => require('../extensions/scratch3_makeymakey'),
     boost: () => require('../extensions/scratch3_boost'),
     gdxfor: () => require('../extensions/scratch3_gdx_for'),
-    //Arduino: () => require('../extensions/scratch3_arduino'),
+    Arduino: () => require('../extensions/scratch3_arduino'),
     //helloWorld: () => require('../extensions/scratch3_hello_world'),
     mlcanvas: () => require('../extensions/scratch3_mlcanvas'),
     mlcostume: () => require('../extensions/scratch3_mlcostume'),
-    mlcar: () => require('../extensions/scratch3_mlcar'),
     mldigits: () => require('../extensions/scratch3_mldigits'),
     mlguess: () => require('../extensions/scratch3_mlguess'),
     mlocr: () => require('../extensions/scratch3_mlocr'),
@@ -41,7 +40,8 @@ const builtinExtensions = {
     //mltext: () => require('../extensions/scratch3_mltext'),
     mlspeech: () => require('../extensions/scratch3_mlspeech'),
     mlaudio: () => require('../extensions/scratch3_mlaudio'),
-    mlchat: () => require('../extensions/scratch3_mlchat')
+    mlchat: () => require('../extensions/scratch3_mlchat'),
+    mlcar: () => require('../extensions/scratch3_mlcar'),
 };
 
 /**
