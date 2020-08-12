@@ -73,8 +73,18 @@ export class ObjectDetection {
   constructor(modelParams) {
     //this.modelPath = basePath + modelParams.modelType + "/tensorflowjs_model.pb";
     //this.weightPath = basePath + modelParams.modelType + "/weights_manifest.json";
-    this.modelPath = "/00000000-0000-0000-0000-000000015000/model/hand/model.pb";                        //modified to run on deepcar (aoqingy)
-    this.weightPath = "/00000000-0000-0000-0000-000000015000/model/hand/model.json";                    //modified to run on deepcar (aoqingy)
+    var ip = null;
+    var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
+        ip = "https://" + window.location.host;
+    } else {                                            //For Cloud (aoqingy)
+        var dnarr = window.location.host.split('.');
+        dnarr[0] = 'api';
+        ip = "https://" + dnarr.join('.');
+    }
+    console.log(ip);
+    this.modelPath = ip + "/00000000-0000-0000-0000-000000015000/model/hand/model.pb";        //modified to run on deepcar (aoqingy)
+    this.weightPath = ip + "/00000000-0000-0000-0000-000000015000/model/hand/model.json";     //modified to run on deepcar (aoqingy)
     this.modelParams = modelParams
   }
 

@@ -389,8 +389,17 @@ class MlAudio {
     }
 
     async mlInit () {
-        let ip = location.host;
-        const baseRecognizer = speechCommands.create('BROWSER_FFT', null, 'https://' + ip + '/00000000-0000-0000-0000-000000015000/model/audio/model.json', 'https://' + ip + '/00000000-0000-0000-0000-000000015000/model/audio/metadata.json');
+        var ip = null;
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
+            ip = "https://" + window.location.host;
+        } else {                                            //For Cloud (aoqingy)
+            var dnarr = window.location.host.split('.');
+            dnarr[0] = 'api';
+            ip = "https://" + dnarr.join('.');
+        }
+        console.log(ip);
+        const baseRecognizer = speechCommands.create('BROWSER_FFT', null, ip + '/00000000-0000-0000-0000-000000015000/model/audio/model.json', ip + '/00000000-0000-0000-0000-000000015000/model/audio/metadata.json');
         //const baseRecognizer = speechCommands.create('BROWSER_FFT');                    //使用网络上的模型
         await baseRecognizer.ensureModelLoaded();
         this.recognizer = baseRecognizer.createTransfer('mlaudio');

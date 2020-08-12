@@ -568,7 +568,7 @@ class MenuBar extends React.Component {
                         ) : (
                             // ********* user not logged in
                             <React.Fragment>
-                                    <span>未登录</span>
+                                <span>未登录</span>
                             </React.Fragment>
                     )}
                 </div>

@@ -42,6 +42,7 @@ npm run dist
 
 要编译Scratch GUI
 ln -s scratch-gui-website scratch-gui
+ln -s scratch-vm-website scratch-vm
 
 cd scratch-gui
 npm install @tensorflow/tfjs@1.5.2

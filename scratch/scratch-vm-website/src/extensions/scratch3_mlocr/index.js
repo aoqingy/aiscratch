@@ -149,11 +149,21 @@ class MlOcr {
     }
 
     async mlInit () {
+        var ip = null;
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
+            ip = "https://" + window.location.host;
+        } else {                                            //For Cloud (aoqingy)
+            var dnarr = window.location.host.split('.');
+            dnarr[0] = 'api';
+            ip = "https://" + dnarr.join('.');
+        }
+        console.log(ip);
         this.worker = ocrlib.createWorker({
-            workerPath: '/00000000-0000-0000-0000-000000015000/model/ocr/worker.min.js',
-            corePath: '/00000000-0000-0000-0000-000000015000/model/ocr/core/tesseract-core.wasm.js',
-            langPath: '/00000000-0000-0000-0000-000000015000/model/ocr/',
-            cachePath: '/00000000-0000-0000-0000-000000015000/model/ocr/',
+            workerPath: ip + '/00000000-0000-0000-0000-000000015000/model/ocr/worker.min.js',
+            corePath: ip + '/00000000-0000-0000-0000-000000015000/model/ocr/core/tesseract-core.wasm.js',
+            langPath: ip + '/00000000-0000-0000-0000-000000015000/model/ocr/',
+            cachePath: ip + '/00000000-0000-0000-0000-000000015000/model/ocr/',
         });
         console.log(this.worker);
     }

@@ -568,12 +568,23 @@ class MlPose {
     }
 
     async mlInit () {
+        var ip = null;
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
+            ip = "https://" + window.location.host;
+        } else {                                            //For Cloud (aoqingy)
+            var dnarr = window.location.host.split('.');
+            dnarr[0] = 'api';
+            ip = "https://" + dnarr.join('.');
+        }
+        ip += "/00000000-0000-0000-0000-000000015000/model/pose/model.json";
+        console.log(ip);
         this.net = await posenet.load({
             architecture: 'MobileNetV1',
             outputStride: 16,
             inputResolution: { width: 480, height: 360 },
             multiplier: 0.75,
-            modelUrl: "/00000000-0000-0000-0000-000000015000/model/pose/model.json"
+            modelUrl: ip
         });
         console.log(this.net)
     }

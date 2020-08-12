@@ -267,7 +267,18 @@ class MlFace {
     }
 
     async mlInit () {
-        await faceapi.nets.ssdMobilenetv1.loadFromUri("/00000000-0000-0000-0000-000000015000/model/face/model.json");
+        var ip = null;
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
+            ip = "https://" + window.location.host;
+        } else {                                            //For Cloud (aoqingy)
+            var dnarr = window.location.host.split('.');
+            dnarr[0] = 'api';
+            ip = "https://" + dnarr.join('.');
+        }
+        ip += "/00000000-0000-0000-0000-000000015000/model/face/model.json";
+        console.log(ip);
+        await faceapi.nets.ssdMobilenetv1.loadFromUri(ip);
     }
 }
 

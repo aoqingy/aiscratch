@@ -47,10 +47,10 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
-/*
 import arduinoIconURL from './arduino/arduino.png';
 import arduinoInsetIconURL from './arduino/arduino-small.png';
 
+/*
 import helloIconURL from './hello/hello.png';
 import helloInsetIconURL from './hello/hello-small.png';
 */
@@ -376,7 +376,6 @@ export default [
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
     },
-/*
     {
         name: 'Arduino',
         extensionId: 'Arduino',
@@ -385,6 +384,7 @@ export default [
         description: "Arduino",
         featured: true
     },
+/*
     {
         name: 'helloWorld',
         extensionId: 'helloWorld',
@@ -420,15 +420,6 @@ export default [
         internetConnectionRequired: true
     },
     {
-        name: 'Deep Car',
-        extensionId: 'mlcar',
-        iconURL: mlcarIconURL,
-        insetIconURL: mlcarInsetIconURL,
-        description: "操作机器人小车的马达和摄像头，创建硬件相关的机器学习应用。",
-        featured: true,
-        internetConnectionRequired: true
-	},
-    {
         name: 'Digital Recognition',
         extensionId: 'mldigits',
         iconURL: mldigitsIconURL,
@@ -436,7 +427,7 @@ export default [
         description: "绘制或拍摄0到9之间数字，实现手写数字识别（MNIST）应用。",
         featured: true,
         internetConnectionRequired: true
-	},
+    },
     {
         name: 'Draw and Guess',
         extensionId: 'mlguess',
@@ -445,7 +436,7 @@ export default [
         description: "绘制或拍摄345种物体草图，实现你画我猜（QuickDraw）应用。",
         featured: true,
         internetConnectionRequired: true
-	},
+    },
     {
         name: 'Text Recognition',
         extensionId: 'mlocr',
@@ -508,7 +499,7 @@ export default [
         description: "基于公开鸢尾花（IRIS）数据集，实现基于文本的鸢尾花分类。",
         featured: true,
         internetConnectionRequired: true
-	},
+    },
 /*
     {
         name: 'Text Training',
@@ -544,6 +535,15 @@ export default [
         iconURL: mlchatIconURL,
         insetIconURL: mlchatInsetIconURL,
         description: "基于百度和图灵API，实现语音聊天机器人，可配合其他插件使用。",
+        featured: true,
+        internetConnectionRequired: true
+    },
+    {
+        name: 'Deep Car',
+        extensionId: 'mlcar',
+        iconURL: mlcarIconURL,
+        insetIconURL: mlcarInsetIconURL,
+        description: "操作机器人小车的马达和摄像头，创建硬件相关的机器学习应用。",
         featured: true,
         internetConnectionRequired: true
     }

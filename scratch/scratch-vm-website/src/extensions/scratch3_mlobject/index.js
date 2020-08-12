@@ -509,7 +509,18 @@ class MlObject {
     }
 
     async mlInit () {
-        this.model = await cocossd.load({modelUrl: "/00000000-0000-0000-0000-000000015000/model/object/model.json"});
+        var ip = null;
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
+            ip = "https://" + window.location.host;
+        } else {                                            //For Cloud (aoqingy)
+            var dnarr = window.location.host.split('.');
+            dnarr[0] = 'api';
+            ip = "https://" + dnarr.join('.');
+        }
+        ip += "/00000000-0000-0000-0000-000000015000/model/object/model.json";
+        console.log(ip);
+        this.model = await cocossd.load({modelUrl: ip});
         console.log(this.model);
     }
 }

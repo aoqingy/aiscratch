@@ -228,6 +228,16 @@ class MlChat {
 
         var blob = new Blob([data], { type: 'audio/wav' });
         var reader = new FileReader();
+        var ip = null;
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
+            ip = "https://" + window.location.host;
+        } else {                                            //For Cloud (aoqingy)
+            var dnarr = window.location.host.split('.');
+            dnarr[0] = 'api';
+            ip = "https://" + dnarr.join('.');
+        }
+        console.log(ip);
         const _this = this;
         reader.onload = function () {
             var dataUrl = reader.result;
@@ -243,7 +253,7 @@ class MlChat {
                 "len": dataLength,
                 "speech": base64
             }
-            fetch("/00000000-0000-0000-0000-000000015000/audio_recognize/", {
+            fetch(ip + "/00000000-0000-0000-0000-000000015000/audio_recognize/", {
                 body: JSON.stringify(reqJson),
                 headers: {
                     'content-type': 'application/json'
@@ -312,8 +322,18 @@ class MlChat {
     }
 
     chatrobot(args, util) {
+        var ip = null;
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
+            ip = "https://" + window.location.host;
+        } else {                                            //For Cloud (aoqingy)
+            var dnarr = window.location.host.split('.');
+            dnarr[0] = 'api';
+            ip = "https://" + dnarr.join('.');
+        }
+        console.log(ip);
         return new Promise((resolve, reject) => {
-            fetch("/00000000-0000-0000-0000-000000015000/chat_robot/", {
+            fetch(ip + "/00000000-0000-0000-0000-000000015000/chat_robot/", {
                 body: JSON.stringify({
                     "text": args.QUESTION,
                 }),
