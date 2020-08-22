@@ -24,7 +24,6 @@ const builtinExtensions = {
     makeymakey: () => require('../extensions/scratch3_makeymakey'),
     boost: () => require('../extensions/scratch3_boost'),
     gdxfor: () => require('../extensions/scratch3_gdx_for'),
-    Arduino: () => require('../extensions/scratch3_arduino'),
     //helloWorld: () => require('../extensions/scratch3_hello_world'),
     mlcanvas: () => require('../extensions/scratch3_mlcanvas'),
     mlcostume: () => require('../extensions/scratch3_mlcostume'),
@@ -42,6 +41,8 @@ const builtinExtensions = {
     mlaudio: () => require('../extensions/scratch3_mlaudio'),
     mlchat: () => require('../extensions/scratch3_mlchat'),
     mlcar: () => require('../extensions/scratch3_mlcar'),
+    Arduino: () => require('../extensions/scratch3_arduino'),
+    Cubic: () => require('../extensions/scratch3_cubic'),
 };
 
 /**

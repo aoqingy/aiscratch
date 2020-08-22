@@ -47,22 +47,14 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
-import arduinoIconURL from './arduino/arduino.png';
-import arduinoInsetIconURL from './arduino/arduino-small.png';
-
 /*
-import helloIconURL from './hello/hello.png';
-import helloInsetIconURL from './hello/hello-small.png';
+** Machine Learning
 */
-
 import mlcanvasIconURL from './mlcanvas/mlcanvas.png';
 import mlcanvasInsetIconURL from './mlcanvas/mlcanvas-small.png';
 
 import mlcostumeIconURL from './mlcostume/mlcostume.png';
 import mlcostumeInsetIconURL from './mlcostume/mlcostume-small.png';
-
-import mlcarIconURL from './mlcar/mlcar.png';
-import mlcarInsetIconURL from './mlcar/mlcar-small.png';
 
 import mldigitsIconURL from './mldigits/mldigits.png';
 import mldigitsInsetIconURL from './mldigits/mldigits-small.png';
@@ -103,6 +95,21 @@ import mlaudioInsetIconURL from './mlaudio/mlaudio-small.png';
 import mlchatIconURL from './mlchat/mlchat.png';
 import mlchatInsetIconURL from './mlchat/mlchat-small.png';
 
+/*
+** Robot Hardware
+*/
+import mlcarIconURL from './mlcar/mlcar.png';
+import mlcarInsetIconURL from './mlcar/mlcar-small.png';
+
+import arduinoIconURL from './arduino/arduino.png';
+import arduinoInsetIconURL from './arduino/arduino-small.svg';
+import arduinoConnectionIconURL from './arduino/arduino-small.svg';
+import arduinoConnectionSmallIconURL from './arduino/arduino-small.svg';
+
+import cubicIconURL from './cubic/cubic.png';
+import cubicInsetIconURL from './cubic/cubic-small.svg';
+import cubicConnectionIconURL from './cubic/cubic-small.svg';
+import cubicConnectionSmallIconURL from './cubic/cubic-small.svg';
 
 export default [
     {
@@ -376,14 +383,6 @@ export default [
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
     },
-    {
-        name: 'Arduino',
-        extensionId: 'Arduino',
-        iconURL: arduinoIconURL,
-        insetIconURL: arduinoInsetIconURL,
-        description: "Arduino",
-        featured: true
-    },
 /*
     {
         name: 'helloWorld',
@@ -546,5 +545,49 @@ export default [
         description: "操作机器人小车的马达和摄像头，创建硬件相关的机器学习应用。",
         featured: true,
         internetConnectionRequired: true
+    },
+    {
+        name: 'Arduino',
+        extensionId: 'Arduino',
+        iconURL: arduinoIconURL,
+        insetIconURL: arduinoInsetIconURL,
+        description: "通过Arduino UNO主板对读取和控制各种传感器。",
+        featured: true,
+        disabled: false,
+        bluetoothRequired: true,
+        internetConnectionRequired: true,
+        launchPeripheralConnectionFlow: true,
+        useAutoScan: false,
+        connectionIconURL: arduinoConnectionIconURL,
+        connectionSmallIconURL: arduinoConnectionSmallIconURL,
+        connectingMessage: (
+            <FormattedMessage
+                defaultMessage="Connecting. Make sure the pin on your EV3 is set to 1234."
+                description="Message to help people connect to their EV3. Must note the PIN should be 1234."
+                id="gui.extension.ev3.connectingMessage"
+            />
+        )
+    },
+    {
+        name: 'Cubic',
+        extensionId: 'Cubic',
+        iconURL: cubicIconURL,
+        insetIconURL: cubicInsetIconURL,
+        description: "通过Cubic主板对读取和控制各种传感器。",
+        featured: true,
+        disabled: false,
+        bluetoothRequired: true,
+        internetConnectionRequired: true,
+        launchPeripheralConnectionFlow: true,
+        useAutoScan: false,
+        connectionIconURL: cubicConnectionIconURL,
+        connectionSmallIconURL: cubicConnectionSmallIconURL,
+        connectingMessage: (
+            <FormattedMessage
+                defaultMessage="Connecting. Make sure the pin on your EV3 is set to 1234."
+                description="Message to help people connect to their EV3. Must note the PIN should be 1234."
+                id="gui.extension.ev3.connectingMessage"
+            />
+        )
     }
 ];

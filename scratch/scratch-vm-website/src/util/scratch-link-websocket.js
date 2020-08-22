@@ -30,6 +30,12 @@ class ScratchLinkWebSocket {
         case 'BT':
             this._ws = new WebSocket('wss://device-manager.aiscratch.online:20110/scratch/bt');		//aoqingy
             break;
+        case 'UNO':
+            this._ws = new WebSocket('wss://device-manager.aiscratch.online:20110/scratch/uno');	//aoqingy
+            break;
+        case 'CUBIC':
+            this._ws = new WebSocket('wss://device-manager.aiscratch.online:20110/scratch/cubic');	//aoqingy
+            break;
         default:
             throw new Error(`Unknown ScratchLink socket Type: ${this._type}`);
         }
