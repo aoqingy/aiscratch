@@ -19,7 +19,13 @@ const blockIconURI = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxz
 /* Icon svg to be displayed in the category menu, encoded as a data URI. */
 const menuIconURI = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaWQ9IkxheWVyXzFfMV8iIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDY0IDY0OyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgNjQgNjQiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnPjxnPjxwYXRoIGQ9Ik01MS4zMTQsMTQuOTI5bC00LjI0My00LjI0M2wtMi4zMzEsMS4zOTljLTAuMzUxLTAuMTY4LTAuNzExLTAuMzE4LTEuMDgxLTAuNDQ4TDQzLDloLTYgICAgbC0wLjY1OSwyLjYzN2MtMC4zNywwLjEzMS0wLjczLDAuMjgxLTEuMDgxLDAuNDQ4bC0yLjMzMS0xLjM5OWwtNC4yNDMsNC4yNDNsMS4zOTksMi4zMzFjLTAuMTY4LDAuMzUxLTAuMzE4LDAuNzExLTAuNDQ4LDEuMDgxICAgIEwyNywxOXY2bDIuNjM3LDAuNjU5YzAuMTMxLDAuMzcsMC4yODEsMC43MywwLjQ0OCwxLjA4MWwtMS4zOTksMi4zMzFsNC4yNDMsNC4yNDNsMi4zMzEtMS4zOTkgICAgYzAuMzUxLDAuMTY4LDAuNzExLDAuMzE4LDEuMDgxLDAuNDQ4TDM3LDM1aDZsMC42NTktMi42MzdjMC4zNy0wLjEzMSwwLjczLTAuMjgxLDEuMDgxLTAuNDQ4bDIuMzMxLDEuMzk5bDQuMjQzLTQuMjQzICAgIGwtMS4zOTktMi4zMzFjMC4xNjgtMC4zNTEsMC4zMTgtMC43MTEsMC40NDgtMS4wODFMNTMsMjV2LTZsLTIuNjM3LTAuNjU5Yy0wLjEzMS0wLjM3LTAuMjgxLTAuNzMtMC40NDgtMS4wODFMNTEuMzE0LDE0LjkyOXoiIHN0eWxlPSJmaWxsOiNGRkNCNTc7Ii8+PC9nPjxnPjxyZWN0IGhlaWdodD0iNCIgc3R5bGU9ImZpbGw6I0U1NjU2NTsiIHdpZHRoPSIyIiB4PSIzOSIgeT0iMiIvPjwvZz48Zz48cmVjdCBoZWlnaHQ9IjIwIiBzdHlsZT0iZmlsbDojRTU2NTY1OyIgd2lkdGg9IjIiIHg9IjM5IiB5PSI0MiIvPjwvZz48Zz48cmVjdCBoZWlnaHQ9IjIiIHN0eWxlPSJmaWxsOiNFNTY1NjU7IiB3aWR0aD0iMiIgeD0iMzkiIHk9IjM4Ii8+PC9nPjxnPjxwYXRoIGQ9Ik01NS4xMjIsOC41MTJDNTEuMDUsMy43MzgsNDQuODk5LDEsMzguMjQ5LDFoLTYuNDY4Yy0zLjQ3NSwwLTYuNjg1LDAuNjk5LTkuNTQyLDIuMDc5ICAgIEMxNC42ODksNi43MjMsMTAsMTQuMTYsMTAsMjIuNDg1YzAsMi41NjQtMS4xNDgsNC45NTMtMy4xNSw2LjU1NGwtMi4xNzgsMS43NDJsMC40ODYsMC43NThjMy4zNDgsNS4yMjIsNS44MzEsMTAuOTE1LDcuMzgsMTYuOTIxICAgIGwwLjMxMiwxLjIwOWMwLjUzNywyLjA4NCwxLjg3NSwzLjc3NSwzLjY3LDQuNjRjMS45ODcsMC45NTksNC4zMjYsMC45MSw2LjI3MS0wLjE0M2wxNC42OTktOC4yOTZsLTAuOTgyLTEuNzQybC0xNC42ODQsOC4yODcgICAgYy0xLjM2NiwwLjc0LTMuMDI0LDAuNzc0LTQuNDM2LDAuMDkzYy0xLjI2NC0wLjYwOS0yLjIxMy0xLjgyNi0yLjYwMy0zLjMzOWwtMC4zMTItMS4yMDljLTAuMDgzLTAuMzIyLTAuMTc5LTAuNjQtMC4yNjctMC45NjFIMTcgICAgdi0yaC0zLjM3OWMtMS41MTUtNC44MzktMy42Mi05LjQ2MS02LjI5OS0xMy43NzdMOC4xLDMwLjYwMWMyLjQ3OS0xLjk4MywzLjktNC45NDEsMy45LTguMTE2YzAtNy41NTIsNC4yNTctMTQuMjk3LDExLjEwOC0xNy42MDUgICAgQzI1LjY5MiwzLjYzMiwyOC42MSwzLDMxLjc4MSwzaDYuNDY4YzYuMDYzLDAsMTEuNjU5LDIuNDgyLDE1LjM1Miw2LjgxYzMuNTg5LDQuMjA2LDUuMDYyLDkuNjY4LDQuMTUyLDE1LjM4ICAgIGMtMC4zOTksMi41MDItMS4yNjMsNC44NDgtMi41NjQsNi45NzNDNDkuODMxLDQwLjkwNiw0Nyw1MC40NDMsNDcsNTkuNzQzVjYxSDI5di04aC0ydjEwaDIydi0zLjI1NyAgICBjMC04LjkzMSwyLjcyOS0xOC4xMDYsNy44OTQtMjYuNTM1YzEuNDM5LTIuMzUsMi4zOTQtNC45NDEsMi44MzQtNy43MDNDNjAuNzMyLDE5LjIwNSw1OS4wOTcsMTMuMTcsNTUuMTIyLDguNTEyeiIgc3R5bGU9ImZpbGw6IzNGM0EzNDsiLz48cmVjdCBoZWlnaHQ9IjIiIHN0eWxlPSJmaWxsOiMzRjNBMzQ7IiB3aWR0aD0iNiIgeD0iMTUiIHk9IjI2Ii8+PHBhdGggZD0iTTQ2LDIyYzAtMy4zMDktMi42OTEtNi02LTZzLTYsMi42OTEtNiw2czIuNjkxLDYsNiw2UzQ2LDI1LjMwOSw0NiwyMnogTTQwLDI2ICAgIGMtMi4yMDYsMC00LTEuNzk0LTQtNHMxLjc5NC00LDQtNHM0LDEuNzk0LDQsNFM0Mi4yMDYsMjYsNDAsMjZ6IiBzdHlsZT0iZmlsbDojM0YzQTM0OyIvPjxwYXRoIGQ9Ik0zNS4zMjYsMzMuMDQxYzAuMDU3LDAuMDI0LDAuMTE0LDAuMDQ5LDAuMTcxLDAuMDcxTDM2LjIxOSwzNmg3LjU2MmwwLjcyMi0yLjg4OCAgICBjMC4wNTctMC4wMjIsMC4xMTQtMC4wNDcsMC4xNzEtMC4wNzFsMi41NTMsMS41MzFsNS4zNDYtNS4zNDdsLTEuNTMtMi41NTJjMC4wMjMtMC4wNTcsMC4wNDctMC4xMTQsMC4wNy0wLjE3MUw1NCwyNS43ODF2LTcuNTYyICAgIGwtMi44ODgtMC43MjJjLTAuMDkyLTAuMjI3LTAuMTktMC40NTEtMC4yOTYtMC42NjlsLTEuODAzLDAuODY0YzAuMTUyLDAuMzE4LDAuMjg4LDAuNjQ2LDAuNDA3LDAuOTgybDAuMTc5LDAuNTA2bDIuNCwwLjZ2NC40MzggICAgbC0yLjQsMC42bC0wLjE3OSwwLjUwNmMtMC4xMTksMC4zMzYtMC4yNTUsMC42NjQtMC40MDcsMC45ODJsLTAuMjMzLDAuNDg1bDEuMjc0LDIuMTIzbC0zLjEzOSwzLjEzOGwtMi4xMjItMS4yNzNsLTAuNDg0LDAuMjMxICAgIGMtMC4zMiwwLjE1My0wLjY0NiwwLjI4OS0wLjk4MiwwLjQwN2wtMC41MDgsMC4xNzlMNDIuMjE5LDM0aC00LjQzOGwtMC42MDEtMi40MDFsLTAuNTA4LTAuMTc5ICAgIGMtMC4zMzYtMC4xMTgtMC42NjItMC4yNTQtMC45ODItMC40MDdsLTAuNDg0LTAuMjMxbC0yLjEyMiwxLjI3M2wtMy42OS0zLjY5bC0xLjQxNCwxLjQxNGw0Ljc5NCw0Ljc5NEwzNS4zMjYsMzMuMDQxeiIgc3R5bGU9ImZpbGw6IzNGM0EzNDsiLz48cGF0aCBkPSJNMjYsMTguMjE5djcuNTYybDIuODg4LDAuNzIyYzAuMDkyLDAuMjI3LDAuMTksMC40NTEsMC4yOTYsMC42NjlsMS44MDMtMC44NjQgICAgYy0wLjE1Mi0wLjMxOC0wLjI4OC0wLjY0Ni0wLjQwNy0wLjk4MkwzMC40LDI0LjgxOWwtMi40LTAuNnYtNC40MzhsMi40LTAuNmwwLjE3OS0wLjUwNmMwLjExOS0wLjMzNiwwLjI1NS0wLjY2NCwwLjQwNy0wLjk4MiAgICBsMC4yMzItMC40ODVsLTEuMjczLTIuMTIzbDMuMTM5LTMuMTM5bDIuMTIyLDEuMjczbDAuNDg0LTAuMjMxYzAuMzItMC4xNTMsMC42NDYtMC4yODksMC45ODItMC40MDdsMC41MDgtMC4xNzlMMzcuNzgxLDEwaDQuNDM4ICAgIGwwLjYwMSwyLjQwMWwwLjUwOCwwLjE3OWMwLjMzNiwwLjExOCwwLjY2MiwwLjI1NCwwLjk4MiwwLjQwN2wwLjQ4NCwwLjIzMWwyLjEyMi0xLjI3M2wzLjY5LDMuNjlsMS40MTQtMS40MTRsLTQuNzk0LTQuNzk1ICAgIGwtMi41NTMsMS41MzJjLTAuMDU3LTAuMDI0LTAuMTE0LTAuMDQ4LTAuMTcxLTAuMDcxTDQzLjc4MSw4aC03LjU2MmwtMC43MjIsMi44ODdjLTAuMDU3LDAuMDIzLTAuMTE0LDAuMDQ3LTAuMTcxLDAuMDcxICAgIGwtMi41NTMtMS41MzJsLTUuMzQ2LDUuMzQ3bDEuNTMsMi41NTNjLTAuMDIzLDAuMDU3LTAuMDQ3LDAuMTE0LTAuMDcsMC4xNzFMMjYsMTguMjE5eiIgc3R5bGU9ImZpbGw6IzNGM0EzNDsiLz48cmVjdCBoZWlnaHQ9IjIiIHN0eWxlPSJmaWxsOiMzRjNBMzQ7IiB3aWR0aD0iMiIgeD0iMzkiIHk9IjEyIi8+PHJlY3QgaGVpZ2h0PSIyIiBzdHlsZT0iZmlsbDojM0YzQTM0OyIgdHJhbnNmb3JtPSJtYXRyaXgoMC43MDcyIC0wLjcwNyAwLjcwNyAwLjcwNzIgLTEuMjA2OCAyOC4zNTc3KSIgd2lkdGg9IjIiIHg9IjMyLjYzNiIgeT0iMTQuNjM2Ii8+PHJlY3QgaGVpZ2h0PSIyIiBzdHlsZT0iZmlsbDojM0YzQTM0OyIgd2lkdGg9IjIiIHg9IjMwIiB5PSIyMSIvPjxyZWN0IGhlaWdodD0iMiIgc3R5bGU9ImZpbGw6IzNGM0EzNDsiIHRyYW5zZm9ybT0ibWF0cml4KDAuNzA3IC0wLjcwNzIgMC43MDcyIDAuNzA3IC0xMC4yMDQxIDMyLjA5OTMpIiB3aWR0aD0iMiIgeD0iMzIuNjM2IiB5PSIyNy4zNjQiLz48cmVjdCBoZWlnaHQ9IjIiIHN0eWxlPSJmaWxsOiMzRjNBMzQ7IiB3aWR0aD0iMiIgeD0iMzkiIHk9IjMwIi8+PHJlY3QgaGVpZ2h0PSIyIiBzdHlsZT0iZmlsbDojM0YzQTM0OyIgdHJhbnNmb3JtPSJtYXRyaXgoMC43MDcyIC0wLjcwNyAwLjcwNyAwLjcwNzIgLTYuNDc4OCA0MS4wODMpIiB3aWR0aD0iMiIgeD0iNDUuMzY0IiB5PSIyNy4zNjQiLz48cmVjdCBoZWlnaHQ9IjIiIHN0eWxlPSJmaWxsOiMzRjNBMzQ7IiB3aWR0aD0iMiIgeD0iNDgiIHk9IjIxIi8+PHJlY3QgaGVpZ2h0PSIyIiBzdHlsZT0iZmlsbDojM0YzQTM0OyIgdHJhbnNmb3JtPSJtYXRyaXgoMC43MDcgLTAuNzA3MiAwLjcwNzIgMC43MDcgMi41MjcyIDM3LjM3MTcpIiB3aWR0aD0iMiIgeD0iNDUuMzY0IiB5PSIxNC42MzYiLz48L2c+PC9nPjwvc3ZnPg==';
 
-const CubicPorts = ['端口一', '端口二', '端口三', '端口四', '端口五', '端口六'];
+const CubicPorts = ['端口1', '端口2', '端口3', '端口4', '端口5', '端口6'];
+const LightNumbers = ['全部', '第1个', '第2个', '第3个'];
+const CubicStrongs = ['低', '中', '高'];
+const CubicTones = ['do', 're', 'mi', 'fa', 'so', 'la', 'xi'];
+const CubicFreqs = ['1', '2', '3', '4', '1/2', '1/4', '3/4'];
+const MotorNumbers = ['编号1', '编号2'];
+
 
 /**
  * Class for the "Cubic" extension's blocks in Scratch 3.0
@@ -72,6 +78,7 @@ class Scratch3CubicBlocks {
         this._sound1 = 0x00;
         this._sound2 = 0x00;
         this._avoid = 0x01;
+        this._sonar = 1000;
     }
 
     /**
@@ -199,6 +206,26 @@ class Scratch3CubicBlocks {
             this._avoid = parseInt(data[1]);
             console.log("avoid: " + this._avoid);
         }
+        if (data[0] == 0x0D) {
+            this._sonar = (parseInt(data[3]) * 16384 + parseInt(data[2]) * 128 + parseInt(data[1])) / 1000;
+            console.log("sonar: " + this._sonar);
+        }
+        if (data[0] == 0x0E) {
+            this._rockerx = parseInt(data[1]);
+            if (data[2] == 0x00) {
+                this._rockerx = -this._rockerx;
+            }
+            this._rockery = parseInt(data[3]);
+            if (data[4] == 0x00) {
+                this._rockery = -this._rockery;
+            }
+            if (data[5] == 0x00 && data[6] == 0x00) {
+                this._rocker = true;
+            } else {
+                this._rocker = false;
+            }
+            console.log("sonar: " + this._sonar);
+        }
     }
 
     /**
@@ -265,8 +292,9 @@ class Scratch3CubicBlocks {
                             defaultValue: 0,
                         },
                         NUMBER: {
-                            type: ArgumentType.STRING,
-                            defaultValue: '0'
+                            type: ArgumentType.NUMBER,
+                            menu: 'lightNumbers',
+                            defaultValue: 0,
                         },
                         R: {
                             type: ArgumentType.STRING,
@@ -282,6 +310,7 @@ class Scratch3CubicBlocks {
                         }
                     }
                 },
+                '---',
                 {
                     opcode: 'display1',
                     blockType: BlockType.COMMAND,
@@ -322,6 +351,7 @@ class Scratch3CubicBlocks {
                         }
                     }
                 },
+                '---',
                 {
                     opcode: 'dht1',
                     blockType: BlockType.COMMAND,
@@ -473,12 +503,186 @@ class Scratch3CubicBlocks {
                     blockType: BlockType.REPORTER,
                     text: '障碍',
                 },
+                {
+                    opcode: 'sonar1',
+                    blockType: BlockType.COMMAND,
+                    text: '读取超声波传感器 端口[PORT]',
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
+                            defaultValue: 0,
+                        },
+                    }
+                },
+                {
+                    opcode: 'sonar2',
+                    blockType: BlockType.REPORTER,
+                    text: '距离',
+                },
+                {
+                    opcode: 'rocker1',
+                    blockType: BlockType.COMMAND,
+                    text: '读取摇杆传感器 端口[PORT]',
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
+                            defaultValue: 0,
+                        },
+                    }
+                },
+                {
+                    opcode: 'rockerx',
+                    blockType: BlockType.REPORTER,
+                    text: 'X坐标',
+                },
+                {
+                    opcode: 'rockery',
+                    blockType: BlockType.REPORTER,
+                    text: 'Y坐标',
+                },
+                {
+                    opcode: 'rocker2',
+                    blockType: BlockType.REPORTER,
+                    text: '摇杆被按下',
+                },
+                {
+                    opcode: 'buzzer1',
+                    blockType: BlockType.COMMAND,
+                    text: '音乐蜂鸣器停止 端口[PORT]',
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
+                            defaultValue: 0,
+                        },
+                    }
+                },
+                {
+                    opcode: 'buzzer2',
+                    blockType: BlockType.COMMAND,
+                    text: '音乐蜂鸣器报警 端口[PORT]',
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
+                            defaultValue: 0,
+                        },
+                    }
+                },
+                {
+                    opcode: 'buzzer3',
+                    blockType: BlockType.COMMAND,
+                    text: '音乐蜂鸣器 端口[PORT] [STRONGTH] 音调[TONE] 节拍[FREQ]',
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
+                            defaultValue: 0,
+                        },
+                        STRONGTH: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicStrongs',
+                            defaultValue: 0,
+                        },
+                        TONE: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicTones',
+                            defaultValue: 0,
+                        },
+                        FREQ: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicFreqs',
+                            defaultValue: 0,
+                        },
+                    }
+                },
+                {
+                    opcode: 'motor1',
+                    blockType: BlockType.COMMAND,
+                    text: '停止直流电机控制器 端口[PORT] 编号[NUMBER]',
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
+                            defaultValue: 0,
+                        },
+                        NUMBER: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'motorNumbers',
+                            defaultValue: 0,
+                        },
+                    }
+                },
+                {
+                    opcode: 'motor2',
+                    blockType: BlockType.COMMAND,
+                    text: '正转直流电机控制器 端口[PORT] 编号[NUMBER] 速度[SPEED]',
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
+                            defaultValue: 0,
+                        },
+                        NUMBER: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'motorNumbers',
+                            defaultValue: 0,
+                        },
+                        SPEED: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 100,
+                        },
+                    }
+                },
+                {
+                    opcode: 'motor3',
+                    blockType: BlockType.COMMAND,
+                    text: '反转直流电机控制器 端口[PORT] 编号[NUMBER] 速度[SPEED]',
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
+                            defaultValue: 0,
+                        },
+                        NUMBER: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'motorNumbers',
+                            defaultValue: 0,
+                        },
+                        SPEED: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 100,
+                        },
+                    }
+                },
            ],
             
             menus: {
                 cubicPorts: {
                     acceptReporters: false,
                     items: this._formatMenu(CubicPorts)
+                },
+                lightNumbers: {
+                    acceptReporters: false,
+                    items: this._formatMenu(LightNumbers)
+                },
+                cubicStrongs: {
+                    acceptReporters: false,
+                    items: this._formatMenu(CubicStrongs)
+                },
+                cubicTones: {
+                    acceptReporters: false,
+                    items: this._formatMenu(CubicTones)
+                },
+                cubicFreqs: {
+                    acceptReporters: false,
+                    items: this._formatMenu(CubicFreqs)
+                },
+                motorNumbers: {
+                    acceptReporters: false,
+                    items: this._formatMenu(MotorNumbers)
                 },
             }
         };
@@ -659,6 +863,94 @@ class Scratch3CubicBlocks {
         } else {
             return false;
         }
+    }
+
+    sonar1(args, util) {
+        var params = new Uint8Array(2);
+        params[0] = 0x0D;
+        params[1] = parseInt(args.PORT);
+        this._sonar = 1000;
+        this.send(params);
+    }
+
+    sonar2(args, util) {
+        return this._sonar;
+    }
+
+    rocker1(args, util) {
+        var params = new Uint8Array(2);
+        params[0] = 0x0E;
+        params[1] = parseInt(args.PORT);
+        this._rocker = false;
+        this.send(params);
+    }
+
+    rockerx(args, util) {
+        return this._rockerx;
+    }
+
+    rockery(args, util) {
+        return this._rockery;
+    }
+
+    rocker2(args, util) {
+        return this._rocker;
+    }
+
+    buzzer1(args, util) {
+        var params = new Uint8Array(3);
+        params[0] = 0x0F;
+        params[1] = parseInt(args.PORT);
+        params[2] = 0x00;
+        this.send(params);
+    }
+
+    buzzer2(args, util) {
+        var params = new Uint8Array(3);
+        params[0] = 0x0F;
+        params[1] = parseInt(args.PORT);
+        params[2] = 0x01;
+        this.send(params);
+    }
+
+    buzzer3(args, util) {
+        var params = new Uint8Array(6);
+        params[0] = 0x0F;
+        params[1] = parseInt(args.PORT);
+        params[2] = 0x02;
+        params[3] = parseInt(args.STRONGTH);
+        params[4] = parseInt(args.TONE);
+        params[5] = parseInt(args.FREQ);
+        this.send(params);
+    }
+
+    motor1(args, util) {
+        var params = new Uint8Array(4);
+        params[0] = 0x10;
+        params[1] = parseInt(args.PORT);
+        params[2] = parseInt(args.NUMBER);
+        params[3] = 0x00;
+        this.send(params);
+    }
+
+    motor2(args, util) {
+        var params = new Uint8Array(5);
+        params[0] = 0x10;
+        params[1] = parseInt(args.PORT);
+        params[2] = parseInt(args.NUMBER);
+        params[3] = 0x01;
+        params[4] = parseInt(args.SPEED);
+        this.send(params);
+    }
+
+    motor3(args, util) {
+        var params = new Uint8Array(5);
+        params[0] = 0x10;
+        params[1] = parseInt(args.PORT);
+        params[2] = parseInt(args.NUMBER);
+        params[3] = 0x02;
+        params[4] = parseInt(args.SPEED);
+        this.send(params);
     }
 
     /**
