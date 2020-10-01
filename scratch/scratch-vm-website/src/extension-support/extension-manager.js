@@ -42,7 +42,8 @@ const builtinExtensions = {
     mlchat: () => require('../extensions/scratch3_mlchat'),
     mlcar: () => require('../extensions/scratch3_mlcar'),
     Arduino: () => require('../extensions/scratch3_arduino'),
-    Cubic: () => require('../extensions/scratch3_cubic'),
+    mlsensor: () => require('../extensions/scratch3_mlsensor'),
+    LiteBee: () => require('../extensions/scratch3_litebee'),
 };
 
 /**

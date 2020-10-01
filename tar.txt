@@ -1,0 +1,1 @@
+tar cvzf aiscratch.tar.gz aiscratch --exclude aiscratch/scratch/scratch-desktop/node_modules --exclude aiscratch/scratch/scratch-vm-website/node_modules --exclude aiscratch/scratch/scratch-gui-website/node_modules --exclude aiscratch/scratch/scratch-gui-desktop/node_modules

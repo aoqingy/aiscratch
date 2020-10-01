@@ -1,6 +1,6 @@
 const JSONRPC = require('../util/jsonrpc');
 
-class CUBIC extends JSONRPC {
+class MLSENSOR extends JSONRPC {
 
     /**
      * A CUBIC peripheral socket object.  It handles connecting, over web sockets, to
@@ -13,7 +13,7 @@ class CUBIC extends JSONRPC {
      * @param {object} messageCallback - a callback for message sending.
      */
     constructor (runtime, extensionId, peripheralOptions, connectCallback, resetCallback, messageCallback) {
-        console.log('Entering CUBIC()...');
+        console.log('Entering MLSENSOR()...');
         super();
 
         this._socket = runtime.getScratchLinkSocket('CUBIC');
@@ -35,7 +35,7 @@ class CUBIC extends JSONRPC {
         this._runtime = runtime;
 
         this._socket.open();
-        console.log('Exiting CUBIC()...');
+        console.log('Exiting MLSENSOR()...');
     }
 
     /**
@@ -180,4 +180,4 @@ class CUBIC extends JSONRPC {
     }
 }
 
-module.exports = CUBIC;
+module.exports = MLSENSOR;

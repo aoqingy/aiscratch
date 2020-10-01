@@ -106,10 +106,15 @@ import arduinoInsetIconURL from './arduino/arduino-small.svg';
 import arduinoConnectionIconURL from './arduino/arduino-small.svg';
 import arduinoConnectionSmallIconURL from './arduino/arduino-small.svg';
 
-import cubicIconURL from './cubic/cubic.png';
-import cubicInsetIconURL from './cubic/cubic-small.svg';
-import cubicConnectionIconURL from './cubic/cubic-small.svg';
-import cubicConnectionSmallIconURL from './cubic/cubic-small.svg';
+import mlsensorIconURL from './mlsensor/mlsensor.png';
+import mlsensorInsetIconURL from './mlsensor/mlsensor-small.svg';
+import mlsensorConnectionIconURL from './mlsensor/mlsensor-small.svg';
+import mlsensorConnectionSmallIconURL from './mlsensor/mlsensor-small.svg';
+
+import litebeeIconURL from './litebee/litebee.png';
+import litebeeInsetIconURL from './litebee/litebee-small.svg';
+import litebeeConnectionIconURL from './litebee/litebee-small.svg';
+import litebeeConnectionSmallIconURL from './litebee/litebee-small.svg';
 
 export default [
     {
@@ -569,19 +574,41 @@ export default [
         )
     },
     {
-        name: 'Cubic',
-        extensionId: 'Cubic',
-        iconURL: cubicIconURL,
-        insetIconURL: cubicInsetIconURL,
-        description: "通过Cubic主板对读取和控制各种传感器。",
+        name: 'Deep Sensor',
+        extensionId: 'mlsensor',
+        iconURL: mlsensorIconURL,
+        insetIconURL: mlsensorInsetIconURL,
+        description: "通过传感器主控板对读取和控制各种传感器。",
         featured: true,
         disabled: false,
         bluetoothRequired: true,
         internetConnectionRequired: true,
         launchPeripheralConnectionFlow: true,
         useAutoScan: false,
-        connectionIconURL: cubicConnectionIconURL,
-        connectionSmallIconURL: cubicConnectionSmallIconURL,
+        connectionIconURL: mlsensorConnectionIconURL,
+        connectionSmallIconURL: mlsensorConnectionSmallIconURL,
+        connectingMessage: (
+            <FormattedMessage
+                defaultMessage="Connecting. Make sure the pin on your EV3 is set to 1234."
+                description="Message to help people connect to their EV3. Must note the PIN should be 1234."
+                id="gui.extension.ev3.connectingMessage"
+            />
+        )
+    },
+    {
+        name: 'LiteBee',
+        extensionId: 'LiteBee',
+        iconURL: litebeeIconURL,
+        insetIconURL: litebeeInsetIconURL,
+        description: "通过LiteBee遥控器读取和控制无人机。",
+        featured: true,
+        disabled: false,
+        bluetoothRequired: true,
+        internetConnectionRequired: true,
+        launchPeripheralConnectionFlow: true,
+        useAutoScan: false,
+        connectionIconURL: litebeeConnectionIconURL,
+        connectionSmallIconURL: litebeeConnectionSmallIconURL,
         connectingMessage: (
             <FormattedMessage
                 defaultMessage="Connecting. Make sure the pin on your EV3 is set to 1234."

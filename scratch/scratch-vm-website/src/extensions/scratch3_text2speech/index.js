@@ -760,6 +760,7 @@ class Scratch3Text2SpeechBlocks {
                         resolve();
                     });
                 });
+
             });
         });
     }
