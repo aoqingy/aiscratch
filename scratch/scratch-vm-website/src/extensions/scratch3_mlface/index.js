@@ -269,12 +269,16 @@ class MlFace {
     async mlInit () {
         var ip = null;
         var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
-            ip = "https://" + window.location.host;
-        } else {                                            //For Cloud (aoqingy)
-            var dnarr = window.location.host.split('.');
-            dnarr[0] = 'api';
-            ip = "https://" + dnarr.join('.');
+        if (window && window.location && window.location.host) {
+            if (window.location.host.match(ipformat)) {             //For DeepCar (aoqingy)
+                ip = "https://" + window.location.host;
+            } else {                                                //For Cloud (aoqingy)
+                var dnarr = window.location.host.split('.');
+                dnarr[0] = 'api';
+                ip = "https://" + dnarr.join('.');
+            }
+        } else {
+            ip = "https://api.aiscratch.online";             //aoqingy
         }
         ip += "/00000000-0000-0000-0000-000000015000/model/face/model.json";
         console.log(ip);

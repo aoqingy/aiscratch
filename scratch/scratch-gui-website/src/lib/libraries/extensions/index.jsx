@@ -551,6 +551,7 @@ export default [
         featured: true,
         internetConnectionRequired: true
     },
+/*
     {
         name: 'Arduino',
         extensionId: 'Arduino',
@@ -565,14 +566,9 @@ export default [
         useAutoScan: false,
         connectionIconURL: arduinoConnectionIconURL,
         connectionSmallIconURL: arduinoConnectionSmallIconURL,
-        connectingMessage: (
-            <FormattedMessage
-                defaultMessage="Connecting. Make sure the pin on your EV3 is set to 1234."
-                description="Message to help people connect to their EV3. Must note the PIN should be 1234."
-                id="gui.extension.ev3.connectingMessage"
-            />
-        )
+        connectingMessage: 'Connecting...'
     },
+*/
     {
         name: 'Deep Sensor',
         extensionId: 'mlsensor',
@@ -587,13 +583,7 @@ export default [
         useAutoScan: false,
         connectionIconURL: mlsensorConnectionIconURL,
         connectionSmallIconURL: mlsensorConnectionSmallIconURL,
-        connectingMessage: (
-            <FormattedMessage
-                defaultMessage="Connecting. Make sure the pin on your EV3 is set to 1234."
-                description="Message to help people connect to their EV3. Must note the PIN should be 1234."
-                id="gui.extension.ev3.connectingMessage"
-            />
-        )
+        connectingMessage: 'Connecting...'
     },
     {
         name: 'LiteBee',
@@ -609,12 +599,6 @@ export default [
         useAutoScan: false,
         connectionIconURL: litebeeConnectionIconURL,
         connectionSmallIconURL: litebeeConnectionSmallIconURL,
-        connectingMessage: (
-            <FormattedMessage
-                defaultMessage="Connecting. Make sure the pin on your EV3 is set to 1234."
-                description="Message to help people connect to their EV3. Must note the PIN should be 1234."
-                id="gui.extension.ev3.connectingMessage"
-            />
-        )
+        connectingMessage: 'Connecting...'
     }
 ];

@@ -1116,12 +1116,16 @@
             var multiplierStr = ({ 0.25: '0.25', 0.50: '0.50', 0.75: '0.75', 1.0: '1.0' })[alpha];
             //this.path = BASE_PATH + "mobilenet_v" + version + "_" + multiplierStr + "_" + IMAGE_SIZE + "/" + "model.json";
             var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-            if (window.location.host.match(ipformat)) {		//For DeepCar (aoqingy)
-                this.path = "https://" + window.location.host;
-            } else {						//For Cloud (aoqingy)
-                var dnarr = window.location.host.split('.');
-                dnarr[0] = 'api';
-                this.path = "https://" + dnarr.join('.');
+            if (window && window.location && window.location.host) {
+                if (window.location.host.match(ipformat)) {		//For DeepCar (aoqingy)
+                    this.path = "https://" + window.location.host;
+                } else {						//For Cloud (aoqingy)
+                    var dnarr = window.location.host.split('.');
+                    dnarr[0] = 'api';
+                    this.path = "https://" + dnarr.join('.');
+                }
+            } else {
+                this.path = "https://api.aiscratch.online";		//aoqingy
             }
             this.path += "/00000000-0000-0000-0000-000000015000/model/knn/model.json";
             console.log(this.path);

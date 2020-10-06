@@ -208,7 +208,7 @@ const MlSensor_BUZZERM = {
 const CubicPorts   = ['端口1', '端口2', '端口3', '端口4', '端口5', '端口6'];
 const CubicLights  = ['全部', '第1个', '第2个', '第3个'];
 const CubicTones   = ['do', 're', 'mi', 'fa', 'so', 'la', 'xi', 'do-', 're-', 'mi-', 'fa-', 'so-', 'la-', 'xi-', 'do+', 're+', 'mi+', 'fa+', 'so+', 'la+', 'xi+'];
-const CubicFreqs   = ['1', '2', '3', '4', '1/2', '1/4', '3/4'];
+const CubicFreqs   = ['1', '2', '3', '4', '1/2', '3/2', '1/4', '3/4'];
 const CubicMotors  = ['编号1', '编号2'];
 
 
@@ -765,18 +765,6 @@ class Scratch3CubicBlocks {
                 },
                 '---',
                 {
-                    opcode: 'buzzers',
-                    blockType: BlockType.COMMAND,
-                    text: MlSensor_BUZZERS[this.locale],
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.NUMBER,
-                            menu: 'cubicPorts',
-                            defaultValue: 0,
-                        },
-                    }
-                },
-                {
                     opcode: 'buzzera',
                     blockType: BlockType.COMMAND,
                     text: MlSensor_BUZZERA[this.locale],
@@ -810,6 +798,18 @@ class Scratch3CubicBlocks {
                         FREQ: {
                             type: ArgumentType.NUMBER,
                             menu: 'cubicFreqs',
+                            defaultValue: 0,
+                        },
+                    }
+                },
+                {
+                    opcode: 'buzzers',
+                    blockType: BlockType.COMMAND,
+                    text: MlSensor_BUZZERS[this.locale],
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'cubicPorts',
                             defaultValue: 0,
                         },
                     }
@@ -1206,16 +1206,17 @@ class Scratch3CubicBlocks {
     }
 
     buzzera(args, util) {
-        var params = new Uint8Array(3);
+        var params = new Uint8Array(5);
         params[0] = 0x0F;
         params[1] = parseInt(args.PORT);
         params[2] = 0x01;
-        params[3] = parseInt(args.HZ);
+        params[3] = parseInt(args.HZ%256);
+        params[4] = parseInt(args.HZ/256)
         this.send(params);
     }
 
     buzzerm(args, util) {
-        var params = new Uint8Array(6);
+        var params = new Uint8Array(5);
         params[0] = 0x0F;
         params[1] = parseInt(args.PORT);
         params[2] = 0x02;

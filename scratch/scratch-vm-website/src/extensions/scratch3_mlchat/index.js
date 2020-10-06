@@ -181,11 +181,6 @@ class MlChat {
                 },
                 '---',
                 {
-                    opcode: 's2t',
-                    blockType: BlockType.COMMAND,
-                    text: 'Dead Loop'
-                },
-                {
                     opcode: 't2s',
                     blockType: BlockType.COMMAND,
                     arguments: {
@@ -253,12 +248,16 @@ class MlChat {
         var reader = new FileReader();
         var ip = null;
         var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
-            ip = "https://" + window.location.host;
-        } else {                                            //For Cloud (aoqingy)
-            var dnarr = window.location.host.split('.');
-            dnarr[0] = 'api';
-            ip = "https://" + dnarr.join('.');
+        if (window && window.location && window.location.host) {
+            if (window.location.host.match(ipformat)) {             //For DeepCar (aoqingy)
+                ip = "https://" + window.location.host;
+            } else {                                                //For Cloud (aoqingy)
+                var dnarr = window.location.host.split('.');
+                dnarr[0] = 'api';
+                ip = "https://" + dnarr.join('.');
+            }
+        } else {
+            ip = "https://api.aiscratch.online";             //aoqingy
         }
         console.log(ip);
         const _this = this;
@@ -347,12 +346,16 @@ class MlChat {
     chatrobot(args, util) {
         var ip = null;
         var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
-            ip = "https://" + window.location.host;
-        } else {                                            //For Cloud (aoqingy)
-            var dnarr = window.location.host.split('.');
-            dnarr[0] = 'api';
-            ip = "https://" + dnarr.join('.');
+        if (window && window.location && window.location.host) {
+            if (window.location.host.match(ipformat)) {             //For DeepCar (aoqingy)
+                ip = "https://" + window.location.host;
+            } else {                                                //For Cloud (aoqingy)
+                var dnarr = window.location.host.split('.');
+                dnarr[0] = 'api';
+                ip = "https://" + dnarr.join('.');
+            }
+        } else {
+            ip = "https://api.aiscratch.online";             //aoqingy
         }
         console.log(ip);
         return new Promise((resolve, reject) => {
@@ -382,25 +385,24 @@ class MlChat {
         return this._chatResponse;
     }
 
-    s2t(args, util) {
-        if (util.stackTimerNeedsInit()) {
-            util.startStackTimer(10000);
-            this.runtime.requestRedraw();
-            util.yield();
-        } else if (!util.stackTimerFinished()) {
-            util.yield();
-        }
-    }
-
     t2s(args, util) {
         var ip = null;
         var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-        if (window.location.host.match(ipformat)) {         //For DeepCar (aoqingy)
-            ip = "https://" + window.location.host;
-        } else {                                            //For Cloud (aoqingy)
-            var dnarr = window.location.host.split('.');
-            dnarr[0] = 'api';
-            ip = "https://" + dnarr.join('.');
+        console.log('window: ' + window);
+        console.log('window.location: ' + window.location);
+        console.log('window.location.host: ' + window.location.host);
+        console.log(window.location.host.match(ipformat));
+        console.log(window.location.host.split('.'));
+        if (window && window.location && window.location.host) {
+            if (window.location.host.match(ipformat)) {             //For DeepCar (aoqingy)
+                ip = "https://" + window.location.host;
+            } else {                                                //For Cloud (aoqingy)
+                var dnarr = window.location.host.split('.');
+                dnarr[0] = 'api';
+                ip = "https://" + dnarr.join('.');
+            }
+        } else {
+            ip = "https://api.aiscratch.online";             //aoqingy
         }
         console.log(ip);
         return new Promise((resolve, reject) => {

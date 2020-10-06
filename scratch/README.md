@@ -32,13 +32,21 @@ or
 cd ../scratch-vm
 npm link
 cd ../scratch-gui
+npm link
 npm link scratch-vm
 #npm run build
-npm link
 cd ../scratch-desktop
+npm link scratch-vm
 npm link scratch-gui
 npm run dist
 
+注：
+由于中国政府对Scratch的封杀，无法访问cdn.assets.scratch.mit.edu（151.101.230.133），导致无法运行npm run fetch，可以先从scratch-gui-website项目中将npm run build得到的build目录下的static/assets拷贝到scratch-desktop的static/assets目录下，然后修改package.json，将
+"dist": "npm run build-gui && npm run fetch && npm run compile -p && node ./scripts/electron-builder-wrapper.js",
+替换为：
+"dist": "npm run build-gui && npm run compile -p && node ./scripts/electron-builder-wrapper.js",
+再运行npm run dist。
+https://github.com/LLK/scratch-desktop/issues/140（"npm run dist" can NOT work !）
 
 要编译Scratch GUI
 ln -s scratch-gui-website scratch-gui

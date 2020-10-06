@@ -298,7 +298,7 @@ class Scratch3LiteBeeBlocks {
                     blockType: BlockType.REPORTER,
                     text: '当前高度'
                 },
-           ],
+            ],
             
             menus: {
                 motorNumbers: {
