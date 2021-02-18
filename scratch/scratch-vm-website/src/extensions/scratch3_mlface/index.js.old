@@ -17,8 +17,8 @@ var faceapi = require('face-api.js');
 
 
 const MlFace_Name = {
-    'en': 'Face Recognition',
-    'zh-cn': '人脸识别',
+    'en': 'Face Detection',
+    'zh-cn': '人脸检测',
 };
 
 const MlFace_IsLoaded = {
@@ -39,11 +39,6 @@ const MlFace_DetectFace = {
 const MlFace_GetFace = {
     'en': 'Face Location',
     'zh-cn': '人脸位置',
-};
-
-const MlFace_GetResult = {
-    'en': 'Detect Result',
-    'zh-cn': '检测结果',
 };
 
 const MlFace_DrawDetection = {
@@ -108,7 +103,6 @@ class MlFace {
         //this.runtime.ioDevices.video.enableVideo();
         //this.video = this.runtime.ioDevices.video.provider.video;
 
-        this.result = '';
         this.descriptors = [];
         this.mlInit();
     }
@@ -126,6 +120,11 @@ class MlFace {
                     text: MlFace_IsLoaded[this.locale]
                 },
                 {
+                    opcode: 'clear',
+                    text: MlFace_Clear[this.locale],
+                    blockType: BlockType.COMMAND,
+                },
+                {
                     opcode: 'detectFace',
                     text: MlFace_DetectFace[this.locale],
                     blockType: BlockType.COMMAND,
@@ -141,11 +140,6 @@ class MlFace {
                     blockType: BlockType.REPORTER,
                     text: MlFace_GetFace[this.locale]
                 },
-                //{
-                //    opcode: 'getResult',
-                //    blockType: BlockType.REPORTER,
-                //    text: MlFace_GetResult[this.locale]
-                //},
                 {
                     opcode: 'drawDetection',
                     text: MlFace_DrawDetection[this.locale],
@@ -167,6 +161,37 @@ class MlFace {
                             defaultValue: ''
                         }
                     }
+                },
+                {
+                    opcode: 'faceRegistration',
+                    text: MlFace_FaceRegistration[this.locale],
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        IMGDATA: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ''
+                        },
+                        NAME: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ''
+                        }
+                    }
+                },
+                {
+                    opcode: 'faceRecognition',
+                    text: MlFace_FaceRecognition[this.locale],
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        IMGDATA: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ''
+                        }
+                    }
+                },
+                {
+                    opcode: 'getRecognition',
+                    text: MlFace_GetRecognition[this.locale],
+                    blockType: BlockType.REPORTER
                 },
                 {
                     opcode: 'faceExpression',
@@ -204,49 +229,13 @@ class MlFace {
                     opcode: 'getGender',
                     text: MlFace_GetGender[this.locale],
                     blockType: BlockType.REPORTER
-                },
-                {
-                    opcode: 'faceRegistration',
-                    text: MlFace_FaceRegistration[this.locale],
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        IMGDATA: {
-                            type: ArgumentType.STRING,
-                            defaultValue: ''
-                        },
-                        NAME: {
-                            type: ArgumentType.STRING,
-                            defaultValue: ''
-                        }
-                    }
-                },
-                {
-                    opcode: 'faceRecognition',
-                    text: MlFace_FaceRecognition[this.locale],
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        IMGDATA: {
-                            type: ArgumentType.STRING,
-                            defaultValue: ''
-                        }
-                    }
-                },
-                {
-                    opcode: 'getRecognition',
-                    text: MlFace_GetRecognition[this.locale],
-                    blockType: BlockType.REPORTER
-                },
-                {
-                    opcode: 'clear',
-                    text: MlFace_Clear[this.locale],
-                    blockType: BlockType.COMMAND,
                 }
             ]
         };
     }
 
     isloaded() {
-		return !!faceapi.nets.ssdMobilenetv1.params &&
+        return !!faceapi.nets.ssdMobilenetv1.params &&
             !!faceapi.nets.tinyFaceDetector.params &&
             !!faceapi.nets.faceLandmark68Net.params &&
             !!faceapi.nets.faceRecognitionNet.params &&
@@ -284,7 +273,7 @@ class MlFace {
         if (!this.context) {
             console.log('!this.context')
             this.context = this.skin._canvas.getContext('2d')
-            this.context.font = '12px serif'
+            this.context.font = '24px serif'
             this.context.fillStyle = 'rgb(0,0,0)'
         }
     }
@@ -296,201 +285,148 @@ class MlFace {
     }
 
     detectFace (args) {
-        var img = new Image();
+        this.result = null;
+        let img = new Image();
         img.src = args.IMGDATA;
         img.onload = async () => {
             const img0 = tf.browser.fromPixels(img);
-			try {
-                var result = await faceapi.detectAllFaces(img0).withFaceLandmarks().withFaceDescriptors();
-                console.log(result);
-                this.result = result;
-			} catch (e) {
-                this.result = e.message.toString();
-            } 
+            const result = await faceapi.detectAllFaces(img0);
+            console.log(result);
+            this.result = result;
         }
     }
 	
     getFace(args, util) {
-        try {
-            var x = parseInt(this.result[0].detection.box.x) * 480 / parseInt(this.result[0].detection.imageWidth) - 240;
-			var y = 180 - parseInt(this.result[0].detection.box.y) * 360 / parseInt(this.result[0].detection.imageHeight);
-			var w = parseInt(this.result[0].detection.box.width) * 480 / parseInt(this.result[0].detection.imageWidth);
-			var h = parseInt(this.result[0].detection.box.height) * 360 / parseInt(this.result[0].detection.imageHeight);
+        if (this.result.length >= 1) {
+            var x = parseInt(this.result[0]._box._x) * 480 / parseInt(this.result[0]._imageDims._width) - 240;
+            var y = 180 - parseInt(this.result[0]._box._y) * 360 / parseInt(this.result[0]._imageDims._height);
+            var w = parseInt(this.result[0]._box._width) * 480 / parseInt(this.result[0]._imageDims._width);
+            var h = parseInt(this.result[0]._box._height) * 360 / parseInt(this.result[0]._imageDims._height);
             return x + ',' + y + ',' + w + ',' + h;
-        } catch (e) {
-            this.result = e.message.toString();           //aoqingy，可否通过这种方式在Scratch Desktop上显示调试信息
-			return '';
+        } else {
+            return '';
         }
     }
 
+
     drawDetection (args) {
-        var img = new Image();
+        let img = new Image();
         img.src = args.IMGDATA;
         img.onload = async () => {
             const img0 = tf.browser.fromPixels(img);
-            //const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
-			const result = await faceapi.detectAllFaces(img0).withFaceLandmarks().withFaceDescriptors()
+            const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
             console.log(result);
             this.result = result;
 
-            try {
-                this.context.strokeStyle = "#0000ff";
-                this.context.fillStyle = "#0000ff";
-                this.context.lineWidth = 2;
-                for (var i = 0; i < result.length; i++) {
-                    var d = result[i].detection;
-                    console.log(d);
-                    var x = parseInt(d.box.x) * 480 / parseInt(d.imageWidth);
-                    var y = parseInt(d.box.y) * 360 / parseInt(d.imageHeight);
-                    var w = parseInt(d.box.width) * 480 / parseInt(d.imageWidth);
-                    var h = parseInt(d.box.height) * 360 / parseInt(d.imageHeight);
-                    this.context.beginPath();
-                    this.context.rect(x, y, w, h);
-                    this.context.stroke();
-                    this.context.fillText(d.score.toFixed(2).toString(), x+2, y+12);
-                }
-                this.skin._canvasDirty = true;
-                this.skin._silhouetteDirty = true;
-                this.runtime.requestRedraw();
-			} catch (e) {
-                this.result = e.message.toString();
-            } 
+            this.context.strokeStyle = "#0000ff";
+            this.context.fillStyle = "#0000ff";
+            this.context.lineWidth = 2;
+            for (i = 0; i < result.length; i++) {
+                var d = result[i].detection;
+                console.log(d);
+                var x = parseInt(d._box._x) * 480 / parseInt(d._imageDims._width);
+                var y = parseInt(d._box._y) * 360 / parseInt(d._imageDims._height);
+                var w = parseInt(d._box._width) * 480 / parseInt(d._imageDims._width);
+                var h = parseInt(d._box._height) * 360 / parseInt(d._imageDims._height);
+                this.context.beginPath();
+                this.context.rect(x, y, w, h);
+                this.context.stroke();
+                this.context.fillText(d._score.toFixed(2).toString(), x, y);
+            }
+            this.skin._canvasDirty = true;
+            this.skin._silhouetteDirty = true;
+            this.runtime.requestRedraw();
         }
     }
 
     drawLandmark (args) {
-        var img = new Image();
+        let img = new Image();
         img.src = args.IMGDATA;
         img.onload = async () => {
             const img0 = tf.browser.fromPixels(img);
-            //const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
-			const result = await faceapi.detectAllFaces(img0).withFaceLandmarks().withFaceDescriptors()
+            const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
             console.log(result);
             this.result = result;
 
-            try {
-			    this.context.strokeStyle = "#ff0000";
-                this.context.fillStyle = "#ff0000";
-                this.context.lineWidth = 2;
-                for (var i = 0; i < result.length; i++) {
-                    this.context.beginPath();
-                    var d = result[i].detection;
-                    var m = result[i].landmarks;
-                    for (var j = 0; j < 16; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 17; j < 21; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 22; j < 26; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 36; j < 41; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 42; j < 47; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 27; j < 30; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 31; j < 35; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 48; j < 54; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 55; j < 59; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 60; j < 64; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-                    for (var j = 65; j < 67; j++) {
-                        var x1 = parseInt(m.positions[j].x) * 480 / parseInt(d.imageWidth);
-                        var y1 = parseInt(m.positions[j].y) * 360 / parseInt(d.imageHeight);
-                        var x2 = parseInt(m.positions[j+1].x) * 480 / parseInt(d.imageWidth);
-                        var y2 = parseInt(m.positions[j+1].y) * 360 / parseInt(d.imageHeight);
-                        this.context.moveTo(x1, y1);
-                        this.context.lineTo(x2, y2);
-                    }
-
-                    this.context.stroke();
+            this.context.strokeStyle = "#ff0000";
+            this.context.fillStyle = "#ff0000";
+            this.context.lineWidth = 2;
+            for (i = 0; i < result.length; i++) {
+                this.context.beginPath();
+                var d = result[i].detection;
+                var m = result[i].landmarks;
+                //下巴
+                for (j = 0; j < 16; j++) {
+                     var x1 = parseInt(m._positions[j]._x) * 480 / parseInt(d._imageDims._width);
+                     var y1 = parseInt(m._positions[j]._y) * 360 / parseInt(d._imageDims._height);
+                     var x2 = parseInt(m._positions[j+1]._x) * 480 / parseInt(d._imageDims._width);
+                     var y2 = parseInt(m._positions[j+1]._y) * 360 / parseInt(d._imageDims._height);
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
                 }
-                this.skin._canvasDirty = true;
-                this.skin._silhouetteDirty = true;
-                this.runtime.requestRedraw();
-			} catch (e) {
-                this.result = e.message.toString();
+                for (j = 17; j < 21; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 22; j < 26; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 36; j < 41; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 42; j < 47; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 27; j < 30; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 31; j < 35; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 48; j < 54; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 55; j < 59; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 60; j < 64; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+                for (j = 65; j < 67; j++) {
+                     this.context.moveTo(parseInt(m._positions[j]._x), parseInt(m._positions[j]._y));
+                     this.context.lineTo(parseInt(m._positions[j+1]._x), parseInt(m._positions[j+1]._y));
+                }
+
+                this.context.stroke();
             }
-    	}
+            this.skin._canvasDirty = true;
+            this.skin._silhouetteDirty = true;
+            this.runtime.requestRedraw();
+        }
     }
 
     faceRegistration (args) {
-        var img = new Image();
+        let img = new Image();
         img.src = args.IMGDATA;
         img.onload = async () => {
             const img0 = tf.browser.fromPixels(img);
-            //const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
-			const result = await faceapi.detectAllFaces(img0).withFaceLandmarks().withFaceDescriptors()
+            const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
             console.log(result);
             this.result = result;
 
             if (result.length == 1) {
                 var d = result[0].descriptor;
-                var a = [];
-                a.push(d);
-                var fd = new faceapi.LabeledFaceDescriptors(args.NAME, a);
+                var ad = [];
+                ad.push(d);
+                var fd = new faceapi.LabeledFaceDescriptors(args.NAME, ad);
                 this.descriptors.push(fd);
                 console.log(this.descriptors);
             }
@@ -498,12 +434,11 @@ class MlFace {
     }
 
     faceRecognition (args) {
-        var img = new Image();
+        let img = new Image();
         img.src = args.IMGDATA;
         img.onload = async () => {
             const img0 = tf.browser.fromPixels(img);
-            //const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
-			const result = await faceapi.detectAllFaces(img0).withFaceLandmarks().withFaceDescriptors()
+            const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
             console.log(result);
             this.result = result;
 
@@ -512,21 +447,21 @@ class MlFace {
             //    const bestMatch = faceMatcher.findBestMatch(fd.descriptor)
             //    console.log(bestMatch.toString())
             //})
-            this.context.strokeStyle = "#00ff00";
-            this.context.fillStyle = "#00ff00";
+            this.context.strokeStyle = "#ff00ff";
+            this.context.fillStyle = "#ff00ff";
             this.context.lineWidth = 2;
-            for (var i = 0; i < result.length; i++) {
+            for (i = 0; i < result.length; i++) {
                 var d = result[i].detection;
                 var r = result[i].descriptor;
                 var bestMatch = faceMatcher.findBestMatch(r);
-                var x = parseInt(d.box.x) * 480 / parseInt(d.imageWidth);
-                var y = parseInt(d.box.y) * 360 / parseInt(d.imageHeight);
-                var w = parseInt(d.box.width) * 480 / parseInt(d.imageWidth);
-                var h = parseInt(d.box.height) * 360 / parseInt(d.imageHeight);
+                var x = parseInt(d._box._x) * 480 / parseInt(d._imageDims._width);
+                var y = parseInt(d._box._y) * 360 / parseInt(d._imageDims._height);
+                var w = parseInt(d._box._width) * 480 / parseInt(d._imageDims._width);
+                var h = parseInt(d._box._height) * 360 / parseInt(d._imageDims._height);
                 this.context.beginPath();
                 this.context.rect(x, y, w, h);
                 this.context.stroke();
-                this.context.fillText(bestMatch.label, x+2, y+12);
+                this.context.fillText(bestMatch.label, x, y);
             }
             this.skin._canvasDirty = true;
             this.skin._silhouetteDirty = true;
@@ -535,19 +470,18 @@ class MlFace {
     }
 
     faceExpression (args) {
-        var img = new Image();
+        let img = new Image();
         img.src = args.IMGDATA;
         img.onload = async () => {
             const img0 = tf.browser.fromPixels(img);
-            //const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
-			const result = await faceapi.detectAllFaces(img0).withFaceLandmarks().withFaceExpressions()
+            const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
             console.log(result);
             this.result = result;
 
-            this.context.strokeStyle = "#ffff00";
-            this.context.fillStyle = "#ffff00";
+            this.context.strokeStyle = "#ff00ff";
+            this.context.fillStyle = "#ff00ff";
             this.context.lineWidth = 2;
-            for (var i = 0; i < result.length; i++) {
+            for (i = 0; i < result.length; i++) {
                 var d = result[i].detection;
                 var e = result[i].expressions;
                 var exp = '';
@@ -559,14 +493,14 @@ class MlFace {
                         val = e[key];
                     }
                 }
-                var x = parseInt(d.box.x) * 480 / parseInt(d.imageWidth);
-                var y = parseInt(d.box.y) * 360 / parseInt(d.imageHeight);
-                var w = parseInt(d.box.width) * 480 / parseInt(d.imageWidth);
-                var h = parseInt(d.box.height) * 360 / parseInt(d.imageHeight);
+                var x = parseInt(d._box._x) * 480 / parseInt(d._imageDims._width);
+                var y = parseInt(d._box._y) * 360 / parseInt(d._imageDims._height);
+                var w = parseInt(d._box._width) * 480 / parseInt(d._imageDims._width);
+                var h = parseInt(d._box._height) * 360 / parseInt(d._imageDims._height);
                 this.context.beginPath();
                 this.context.rect(x, y, w, h);
                 this.context.stroke();
-                this.context.fillText(exp + ': ' + val.toFixed(2).toString(), x+2, y+12);
+                this.context.fillText(exp + ': ' + val.toFixed(2).toString(), x, y);
             }
             this.skin._canvasDirty = true;
             this.skin._silhouetteDirty = true;
@@ -575,33 +509,31 @@ class MlFace {
     }
 
     ageAndGender (args) {
-        var img = new Image();
+        let img = new Image();
         img.src = args.IMGDATA;
         img.onload = async () => {
             const img0 = tf.browser.fromPixels(img);
-            //const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withAgeAndGender()
-			const result = await faceapi.detectAllFaces(img0).withFaceLandmarks().withAgeAndGender()
+            const result = await faceapi.detectAllFaces(img0, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withAgeAndGender()
             console.log(result);
             this.result = result;
 
-            this.context.strokeStyle = "#ff00ff";
-            this.context.fillStyle = "#ff00ff";
+            this.context.strokeStyle = "#00ffff";
+            this.context.fillStyle = "#00ffff";
             this.context.lineWidth = 2;
-            for (var i = 0; i < result.length; i++) {
+            for (i = 0; i < result.length; i++) {
                 var d = result[i].detection;
                 var a = result[i].age;
                 var g = result[i].gender;
                 console.log(d);
                 console.log(a);
-                var x = parseInt(d.box.x) * 480 / parseInt(d.imageWidth);
-                var y = parseInt(d.box.y) * 360 / parseInt(d.imageHeight);
-                var w = parseInt(d.box.width) * 480 / parseInt(d.imageWidth);
-                var h = parseInt(d.box.height) * 360 / parseInt(d.imageHeight);
+                var x = parseInt(d._box._x) * 480 / parseInt(d._imageDims._width);
+                var y = parseInt(d._box._y) * 360 / parseInt(d._imageDims._height);
+                var w = parseInt(d._box._width) * 480 / parseInt(d._imageDims._width);
+                var h = parseInt(d._box._height) * 360 / parseInt(d._imageDims._height);
                 this.context.beginPath();
                 this.context.rect(x, y, w, h);
                 this.context.stroke();
-                this.context.fillText('年龄: '+parseInt(a), x+2, y+12);
-                this.context.fillText('性别: '+g, x+2, y+26);
+                this.context.fillText('年龄: '+parseInt(a)+'; 性别: '+g, x, y);
             }
             this.skin._canvasDirty = true;
             this.skin._silhouetteDirty = true;
@@ -609,27 +541,26 @@ class MlFace {
         }
     }
 
-    getResult(args) {
-        console.log(this.result);
-        return this.result;
+    getResult() {
+        console.log(this.result)
+        return this.result
     }
 
-    getRecognition(args) {
-        try {
+    getRecognition() {
+        if (this.result.length >= 1) {
             const faceMatcher = new faceapi.FaceMatcher(this.descriptors);
             console.log(faceMatcher);
             console.log(this.result[0].descriptor);
             var bestMatch = faceMatcher.findBestMatch(this.result[0].descriptor);
             console.log(bestMatch);
             return bestMatch.label;
-        } catch (e) {
-            this.result = e.message.toString();
-			return '';
+        } else {
+            return '';
         }
     }
 
-    getExpression(args) {
-        try {
+    getExpression() {
+        if (this.result.length >= 1) {
             var e = this.result[0].expressions;
             var exp = '';
             var val = 0;
@@ -640,25 +571,24 @@ class MlFace {
                 }
             }
             return exp;
-        } catch (e) {
-            this.result = e.message.toString();
-			return '';
+        } else {
+            return '';
         }
     }
 
-    getAge(args) {
-        try {
-            return parseInt(this.result[0].age, 10);
-        } catch (e) {
+    getAge() {
+        if (this.result.length >= 1) {
+            return parseInt(this.result[0].age);
+        } else {
             return 0;
         }
     }
 
     getGender() {
-        try {
+        if (this.result.length >= 1) {
             return this.result[0].gender;
-        } catch (e) {
-            return '';
+        } else {
+            return 0;
         }
     }
 

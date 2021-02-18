@@ -216,6 +216,7 @@ class VideoProvider {
                 try {
                     this._video.srcObject = stream;
                 } catch (error) {
+                    alert('xxx:' + error);
                     this._video.src = window.URL.createObjectURL(stream);
                 }
                 // Hint to the stream that it should load. A standard way to do this
@@ -228,6 +229,7 @@ class VideoProvider {
                 return this;
             })
             .catch(error => {
+                alert('yyy:' + error);
                 this._singleSetup = null;
                 this.onError(error);
             });

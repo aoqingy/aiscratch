@@ -85,10 +85,12 @@ class MlCanvas {
 
     _createLayer() {
         if (!this.runtime.renderer) {
+            console.log('!this.runtime.renderer')
             return
         }
 
         if (!this._penSkinId) {
+            console.log('!this._penSkinId')
             this._penSkinId = this.runtime.renderer.createPenSkin()
             this._penDrawableId = this.runtime.renderer.createDrawable(
                 StageLayering.SPRITE_LAYER
@@ -100,6 +102,7 @@ class MlCanvas {
         }
 
         if (!this.skin) {
+            console.log('!this.skin')
             this.skin = this.runtime.renderer._allSkins[this._penSkinId]
 
             const skinSize = this.skin.size
@@ -108,6 +111,7 @@ class MlCanvas {
         }
 
         if (!this.context) {
+            console.log('!this.context')
             this.context = this.skin._canvas.getContext('2d')
             this.context.font = '24px serif'
             this.context.fillStyle = 'rgb(0,0,0)'

@@ -80,19 +80,19 @@ class MlCostume {
                     opcode: 'saveScreenshotToCostume',
                     text: MlCostume_Save[this.locale],
                     blockType: BlockType.COMMAND,
-                    filter: ['sprite']
+                    //filter: ['sprite']
                 },
                 {
                     opcode: 'getCostumeImage',
                     text: MlCostume_Costume[this.locale],
                     blockType: BlockType.REPORTER,
-                    filter: ['sprite']
+                    //filter: ['sprite']
                 },
                 {
                     opcode: 'getBackdropImage',
                     text: MlCostume_Backdrop[this.locale],
                     blockType: BlockType.REPORTER,
-                    filter: ['stage']
+                    //filter: ['stage']
                 },
                 {
                     opcode: 'getImageWindow',
@@ -137,7 +137,7 @@ class MlCostume {
                     opcode: 'downloadImageData',
                     text: MlCostume_Download[this.locale],
                     blockType: BlockType.COMMAND,
-                    filter: ['sprite'],
+                    //filter: ['sprite'],
                     arguments: {
                         DATA: {
                             type: ArgumentType.STRING,

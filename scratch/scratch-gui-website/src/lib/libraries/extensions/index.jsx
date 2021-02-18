@@ -95,6 +95,9 @@ import mlaudioInsetIconURL from './mlaudio/mlaudio-small.png';
 import mlchatIconURL from './mlchat/mlchat.png';
 import mlchatInsetIconURL from './mlchat/mlchat-small.png';
 
+//import qrcodeIconURL from './mlchat/mlchat.png';
+//import qrcodeInsetIconURL from './mlchat/mlchat-small.png';
+
 /*
 ** Robot Hardware
 */
@@ -115,6 +118,11 @@ import litebeeIconURL from './litebee/litebee.png';
 import litebeeInsetIconURL from './litebee/litebee-small.svg';
 import litebeeConnectionIconURL from './litebee/litebee-small.svg';
 import litebeeConnectionSmallIconURL from './litebee/litebee-small.svg';
+
+import telloIconURL from './tello/tello.png';
+import telloInsetIconURL from './tello/tello-small.svg';
+import telloConnectionIconURL from './tello/tello-small.svg';
+import telloConnectionSmallIconURL from './tello/tello-small.svg';
 
 export default [
     {
@@ -542,6 +550,15 @@ export default [
         featured: true,
         internetConnectionRequired: true
     },
+    //{
+    //    name: 'QR Code',
+    //    extensionId: 'qrcode',
+    //    iconURL: qrcodeIconURL,
+    //    insetIconURL: qrcodeInsetIconURL,
+    //    description: "QRCODE",
+    //    featured: true,
+    //    internetConnectionRequired: true
+    //},
     {
         name: 'Deep Car',
         extensionId: 'mlcar',
@@ -590,7 +607,7 @@ export default [
         extensionId: 'LiteBee',
         iconURL: litebeeIconURL,
         insetIconURL: litebeeInsetIconURL,
-        description: "通过LiteBee遥控器读取和控制无人机。",
+        description: "通过遥控器读取和控制无人机。",
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -599,6 +616,22 @@ export default [
         useAutoScan: false,
         connectionIconURL: litebeeConnectionIconURL,
         connectionSmallIconURL: litebeeConnectionSmallIconURL,
+        connectingMessage: 'Connecting...'
+    },
+    {
+        name: 'Tello',
+        extensionId: 'Tello',
+        iconURL: telloIconURL,
+        insetIconURL: telloInsetIconURL,
+        description: "通过无线读取和控制无人机。",
+        featured: true,
+        disabled: false,
+        bluetoothRequired: true,
+        internetConnectionRequired: true,
+        launchPeripheralConnectionFlow: true,
+        useAutoScan: false,
+        connectionIconURL: telloConnectionIconURL,
+        connectionSmallIconURL: telloConnectionSmallIconURL,
         connectingMessage: 'Connecting...'
     }
 ];

@@ -71,7 +71,7 @@ import dropdownCaret from './dropdown-caret.svg';
 import languageIcon from '../language-selector/language-icon.svg';
 import aboutIcon from './icon--about.svg';
 
-import scratchLogo from './virtfan-logo.svg';		//aoqingy
+import scratchLogo from './deepfan-logo.svg';		//aoqingy
 
 import sharedMessages from '../../lib/shared-messages';
 

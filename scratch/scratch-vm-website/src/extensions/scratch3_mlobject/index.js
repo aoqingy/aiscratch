@@ -368,6 +368,8 @@ class MlObject {
     }
 
     predict(args, util) {
+        var that = this;
+        that.finished = false;
         let img = new Image();
         img.src = args.IMGDATA;
         img.onload = async () => {
@@ -437,7 +439,7 @@ class MlObject {
                 this.resultPosition2 = Cast.toString(x2) + ',' + Cast.toString(y2) + ',' + Cast.toString(w2) + ',' + Cast.toString(h2);
                 this.resultConfidence2 = topKClassWIndex[2]['probability']['score'].toFixed(2);
             }
-            this.finished = true;
+            that.finished = true;
         }
     }
 
@@ -502,9 +504,6 @@ class MlObject {
     }
 
     whenFinished(args, util) {
-        setTimeout(() => {
-            this.finished = false;
-        }, 100);                        //HAT_TIMEOUT
         return this.finished === true;
     }
 

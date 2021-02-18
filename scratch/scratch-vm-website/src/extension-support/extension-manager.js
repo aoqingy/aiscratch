@@ -36,6 +36,7 @@ const builtinExtensions = {
     mlobject: () => require('../extensions/scratch3_mlobject'),
     mlimage: () => require('../extensions/scratch3_mlimage'),
     mliris: () => require('../extensions/scratch3_mliris'),
+    //qrcode: () => require('../extensions/scratch3_qrcode'),
     //mltext: () => require('../extensions/scratch3_mltext'),
     mlspeech: () => require('../extensions/scratch3_mlspeech'),
     mlaudio: () => require('../extensions/scratch3_mlaudio'),
@@ -44,6 +45,7 @@ const builtinExtensions = {
     Arduino: () => require('../extensions/scratch3_arduino'),
     mlsensor: () => require('../extensions/scratch3_mlsensor'),
     LiteBee: () => require('../extensions/scratch3_litebee'),
+    Tello: () => require('../extensions/scratch3_tello'),
 };
 
 /**

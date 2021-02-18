@@ -304,19 +304,23 @@ const loadCostume = function (md5ext, costume, runtime, optVersion) {
     const md5 = idParts[0];
     const ext = idParts[1].toLowerCase();
     costume.dataFormat = ext;
+    alert('aaa');
 
     if (costume.asset) {
+        alert('bbb');
         // Costume comes with asset. It could be coming from camera, image upload, drag and drop, or file
         return loadCostumeFromAsset(costume, runtime, optVersion);
     }
 
     // Need to load the costume from storage. The server should have a reference to this md5.
     if (!runtime.storage) {
+        alert('ccc');
         log.error('No storage module present; cannot load costume asset: ', md5ext);
         return Promise.resolve(costume);
     }
 
     if (!runtime.storage.defaultAssetId) {
+        alert('ddd');
         log.error(`No default assets found`);
         return Promise.resolve(costume);
     }
@@ -324,20 +328,27 @@ const loadCostume = function (md5ext, costume, runtime, optVersion) {
     const AssetType = runtime.storage.AssetType;
     const assetType = (ext === 'svg') ? AssetType.ImageVector : AssetType.ImageBitmap;
 
+    alert('eee');
     const costumePromise = runtime.storage.load(assetType, md5, ext);
     if (!costumePromise) {
+        alert('fff');
         log.error(`Couldn't fetch costume asset: ${md5ext}`);
         return;
     }
 
+    alert('ggg');
     let textLayerPromise;
     if (costume.textLayerMD5) {
+        alert('hhh');
         textLayerPromise = runtime.storage.load(AssetType.ImageBitmap, costume.textLayerMD5, 'png');
     } else {
+        alert('iii');
         textLayerPromise = Promise.resolve(null);
     }
 
+    alert('jjj');
     return Promise.all([costumePromise, textLayerPromise]).then(assetArray => {
+        alert('kkk');
         costume.asset = assetArray[0];
         if (assetArray[1]) {
             costume.textLayerAsset = assetArray[1];

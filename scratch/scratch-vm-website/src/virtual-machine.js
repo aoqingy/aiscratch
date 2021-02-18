@@ -640,7 +640,9 @@ class VirtualMachine extends EventEmitter {
     addCostume (md5ext, costumeObject, optTargetId, optVersion) {
         const target = optTargetId ? this.runtime.getTargetById(optTargetId) :
             this.editingTarget;
+        alert('000');
         if (target) {
+            alert('111');
             return loadCostume(md5ext, costumeObject, this.runtime, optVersion).then(() => {
                 target.addCostume(costumeObject);
                 target.setCostume(
@@ -649,6 +651,7 @@ class VirtualMachine extends EventEmitter {
                 this.runtime.emitProjectChanged();
             });
         }
+        alert('222');
         // If the target cannot be found by id, return a rejected promise
         return Promise.reject();
     }
